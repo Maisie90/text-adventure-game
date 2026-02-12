@@ -4,6 +4,9 @@ let state = {
   chocolate: false,
   doughnut: false,
   ring: false,
+  cider: false,
+  chip: false,
+  reflect:false,
   visited: {
     gardens: false,
     berties: false,
@@ -11,10 +14,26 @@ let state = {
   }
 };
 
+function resetState() {
+  state.memory = 0;
+  state.chocolate = false;
+  state.doughnut = false;
+  state.ring = false;
+  state.cider = false;
+  state.chip = false;
+  state.reflect = false;
+  state.visited = {
+    gardens: false,
+    berties: false,
+    kitchen: false
+  };
+}
+
 // DOM elements
 const storyDiv = document.getElementById('story');
 const choicesDiv = document.getElementById('choices');
 const inventoryDiv = document.getElementById('inventory');
+const memoryDiv = document.getElementById('memory');
 
 // Update inventory
 function updateInventory() {
@@ -23,39 +42,59 @@ function updateInventory() {
   if(state.doughnut) items.push("Doughnut clue");
   if(state.ring) items.push("Engagement ring");
   if(state.cider) items.push("Cider");
+  if(state.chip) items.push("Metallic chip");
   inventoryDiv.textContent = "Inventory: " + (items.length ? items.join(", ") : "Nothing yet");
+
+  // Pulse animation
+  inventoryDiv.classList.remove("pulse");
+  void inventoryDiv.offsetWidth; // trigger reflow
+  inventoryDiv.classList.add("pulse");
 }
+
+
+
+
+function memoryCount() {
+memoryDiv.textContent = "Memories Recalled: " + state.memory; 
+// Pulse animation
+  inventoryDiv.classList.remove("pulse");
+  void inventoryDiv.offsetWidth; // trigger reflow
+  inventoryDiv.classList.add("pulse");
+}
+
+
+
 
 // Game passages
 const passages = {
   start: {
     text: ` <h1> The Case of the Missing Ring </h1>
     The rain tapped the windows like it had a vendetta against everything soft and sentimental. 
-My office smelled of stale decaf coffee, chocolate wrappers, and something faintly like… victory? I couldn’t tell.
 
-Across from me, my assistant—small, serious, suspiciously perceptive—was lining up toy cars across the desk.
+Your office smelled of stale decaf coffee, chocolate wrappers, and something faintly like… victory? I couldn’t tell.
 
-“This case is big,” he said, making engine noises.
+You haven’t been sleeping much lately.
 
-“I’ll believe it when it pays in chocolate,” I muttered.
+Too many late nights. Too many thoughts I never say out loud.
+ 
+Sometimes it feels like parts of you are… offline.
 
-He looked at me like I’d just insulted his mother. 
+Across from me, my assistant — small, serious, suspiciously perceptive — was lining up toy cars across the desk.
 
-“Detective,” he said, “rings are missing. And some memories might be too.”
-
-This kind of case should be simple: find the missing ring. But something told me it would get complicated.`,
+“This case is big, Detective” he said, making engine noises.
+`,
     choices: [
       { text: "Examine the Desk", action: () => goTo('examineFiles') },
-      { text: "Ask about the Case", action: () => goTo('askCase') },
+      { text: "Start Investigation", action: () => goTo('investigationSetup') },
       { text: "Ask about your Assistant", action: () => goTo('askAssistant') }
     ]
   },
   examineFiles: {
     text: `The files are organized in a way that makes sense only to a toddler—or a criminal mastermind pretending to be one.
 
-Missing Ring is in a manila folder, with dinosaur stickers covering the bottom corner.
+The Missing Ring is in a manila folder, with dinosaur stickers covering the bottom corner.
 
-Doughnut Dispute has sticky fingerprints.
+The Doughnut Dispute has sticky fingerprints.
 
 The Vanishing of the Chocolate Milk is under “Priority: High.”`,
     choices: [
@@ -64,22 +103,23 @@ The Vanishing of the Chocolate Milk is under “Priority: High.”`,
       { text: "Ask about your Assistant", action: () => goTo('askAssistant') }
     ]
   },
-  askCase: {
-    text: `Killian leans forward.
+//   askCase: {
+//     text: `Killian leans forward.
 
-“Someone took something precious,” he says. “Rings. Memories. Chocolate. Mostly the ring.”
+// “Someone took something precious,” he says. “Rings. Memories. Chocolate. Mostly the ring.”
 
-“Who?” you ask.
+// “Who?” you ask.
 
-Killian shrugs. “Could be anyone.”`,
-    choices: [
-      { text: "Start the investigation", action: () => goTo('investigationSetup') },
-      { text: "Examine the Desk", action: () => goTo('examineFiles') },
-      { text: "Ask about your Assistant", action: () => goTo('askAssistant') }
-    ]
-  },
+// Killian shrugs. “Could be anyone.”`,
+//     choices: [
+//       { text: "Start the investigation", action: () => goTo('investigationSetup') },
+//       { text: "Examine the Desk", action: () => goTo('examineFiles') },
+//       { text: "Ask about your Assistant", action: () => goTo('askAssistant') }
+//     ]
+//   },
   askAssistant: {
-    text: `“My name is Killian,” he says. “But you can call me Kili. I love vehicles of all kinds, and chocolate muffins, chocolate biscuits, chocolate sandwiches...also, 8.”`,
+    text: `“My name is Killian,” he says. “But you can call me Kili. 
+    I love vehicles of all kinds, and chocolate. Chocolate muffins, chocolate biscuits, chocolate sandwiches...also, 8.”`,
     choices: [
       { text: "Start the investigation", action: () => goTo('investigationSetup') },
       { text: "Examine the Desk", action: () => goTo('examineFiles') },
@@ -102,9 +142,10 @@ Confused, you try to prompt Killian further. “So… what else is missing?”
 - Bertie’s Bar
 - A familiar looking Kitchen. 
 
-“Follow the trail, Detective,” he says.
-“Solve the case. Remember.”
+“Follow the trail, Detective,” he says. “Solve the case. Remember.”
+
 He looks at you with tiny seriousness.
+
 “Also… chocolate may be involved.”`,
     choices: [
       { text: "Go to The Hill Garden and Pergola", action: () => goTo('gardens') },
@@ -131,16 +172,16 @@ Killian zoomed his toy spitfire in the air.
     },
      
     choices: [
-      { text: "Search the bushes", action: () => { state.memory++; goTo('gardenBushes'); } },
-      { text: "Reflect quietly", action: () => { state.memory++; goTo('gardenReflect'); } },
+      { text: "Search the bushes", action: () =>  goTo('gardenBushes') },
+      { text: "Reflect quietly", action: () =>  {state.reflect = true; goTo('gardenReflect') }},
       { text: "Ask Killian what’s important", action: () => goTo('gardenAsk') }
     ]},
   gardenBushes: { 
     text: `You part the leaves and find… nothing. Well, except a small puddle of chocolate you didn’t remember hiding there.
 
-Killian: “Detective, sometimes clues are metaphorical. Sometimes they’re melted chocolate.”`, 
+Killian: “Detective, you found the chocolate! Maybe it’s a clue? Or maybe it’s just chocolate. But either way, it’s here now.”`, 
 choices: [
-  { text: "Keep the chocolate and take a moment to reflect", action: () => { state.chocolate = true; state.memory++; goTo('gardenReflect'); } },
+  { text: "Keep the chocolate and take a moment to reflect", action: () => { state.reflect = true; state.chocolate = true; goTo('gardenReflect'); } },
   { text: "Ignore the chocolate clue", action: () => goTo('investigationContinue') }
 ]
   },
@@ -155,10 +196,11 @@ As you close your eyes, a memory surfaces: laughter, a hand held, the sparkle of
 },
 gardenMemory: {
   text: `The memory is hazy, but you can make out a figure standing over someone kneeling in the rain, holding something small and shiny. 
+  
   The figure looks up, and for a moment, you see those sea-green eyes and hear laughter on the wind. 
+ 
   But then it’s gone, replaced by a flash of chocolate and a whisper: “Remember.”`,
   choices: [  
-    { text: "Search the bushes", action: () => { goTo('gardenBushes'); } },
     { text: "Ask Killian what’s important", action: () => goTo('gardenAsk') },
     { text: "Move on", action: () => goTo('investigationContinue') }
   ]
@@ -166,7 +208,7 @@ gardenMemory: {
  gardenAsk: {
   text: `You turn to Killian, hoping for a hint about what’s so important about the gardens.
 
-  Killian sighs dramatically.
+  Killian sighs dramatically, flicking a cheerio across the ground with his toy train.
 
 “I can’t tell you, Detective. It’s too important. You have to find it yourself.”`,
 choices: [
@@ -174,14 +216,23 @@ choices: [
   { text: "Accept the mystery and keep investigating", action: () => goTo('investigationContinue') }
 ]
  },
- moreInformation: {
+moreInformation: {
   text: `Killian looks at you, a mix of frustration and amusement in his eyes.
-“Fine,” he says. “The gardens are where something big happened. It’s not just a clue location. It’s… personal. But that’s all I can say.”`,
-choices: [
-  { text: "Search the bushes", action: () => { goTo('gardenBushes'); } },,
-  { text: "Accept the vague information and keep investigating", action: () => goTo('investigationContinue') }
-]
- },
+
+“Fine,” he says. “The gardens are where something big happened. It’s not just a clue location. It’s… personal.
+But that’s all I can say.”`,
+  choices: (() => {
+    let options = [
+      { text: "Accept the vague information and keep investigating", action: () => goTo('investigationContinue') }
+    ];
+
+    if (state.reflect === false) {
+      options.push({ text: "Reflect quietly", action: () => goTo('gardenReflect') });
+    }
+
+    return options;
+  })()
+},
   berties: {
     text: () => {
       state.visited.berties = true;
@@ -195,42 +246,65 @@ A table in the corner triggered a feeling in you. Your head starts to pound.`;
       return txt;
     },
     choices: [
-      { text: "Inspect the table", action: () => { state.memory++; goTo('bertiesTable'); } },
-      { text: "Ask bartender for clues", action: () => { state.memory++; goTo('bertiesBartender'); } }
+      { text: "Inspect the table", action: () => { goTo('bertiesTable'); } },
+      { text: "Ask bartender for clues", action: () => { goTo('bertiesBartender'); } }
     ]
   },
   bertiesTable: {
     text: `You see a half-finished Stowford Press cider, diet coke and Nando’s receipt balled up on the table. 
 
-An eerie feeling of Deja-Vu creeps over you. 
+    A handful of cheerios are scattered across the floor, some crushed, some whole. A strange metallic chip is wedged between the floorboards.
 
-“Have I been here before?”`,
+    An eerie feeling of Deja-Vu creeps over you. 
+
+    “Have I been here before?”`,
     choices: [
-      { text: "Take a photo", action: () => { state.memory++; goTo('investigationContinue'); } },  
-      { text: "Finish the cider and order another from the bartender", action: () => goTo('bertiesBartender') }
+      { text: "Take a photo and leave", action: () => { state.memory++; goTo('investigationContinue'); } },
+      {text: "Inspect further", action: () => goTo('metallicChip') },  
+      { text: "Finish the cider and head over to the bartender", action: () => goTo('bertiesBartender') }
     ]
   },
+
+metallicChip: { 
+text: `As you bend down to examine the surrounding area, you try to grab the small chip wedged in the floorboards. 
+
+You cut your finger on the sharp edge.
+
+Killian looks at you "Some things may be better left alone” he says, a hint of warning in his voice.`,
+choices: [{ text: "Keep the chip and continue investigating", action: () => { state.chip = true; state.memory++; goTo('endingTwo'); } }, 
+  { text: "Discard the chip and continue investigating", action: () => goTo('bertiesBartender') } ] },
+
+
   bertiesBartender: {
     text: `The bartender looks at you with a mix of sympathy and suspicion.
-“You look like you’ve seen a ghost,” he says. “Or maybe just a memory. You’re not the first one to come in here looking for something they can’t quite remember.”`,
+
+“You look like you’ve seen a ghost,” he says. “Or maybe just a memory.
+
+You’re not the first one to come in here looking for something they can’t quite remember.”
+
+His words hit home. The doctor said it was stress.
+
+Said memory can hide when the heart feels overloaded.`,
     choices: [
-      { text: "Ask about the memory", action: () => goTo('bartenderMemory') },  
-      { text: "Wander over to the Jukebox", action: () => { state.memory++; goTo('jukebox'); } },
+      { text: "Order a cider & enquire further", action: () => {state.cider = true; state.memory++; goTo('bartenderMemory')} },  
+      { text: "Wander over to the Jukebox", action: () =>  goTo('jukebox')  },
       { text: "Leave and continue on elsewhere", action: () => goTo('investigationContinue') }
     ]
   },
   bartenderMemory: {    
     text: `The bartender leans in, lowering his voice.
-“Some people come in here looking for memories. They say they can’t remember something important, but they know it’s connected to this place. They say they feel like they’ve been here before, even if they haven’t. I always find listening to music helps me sort things out”`,
+
+“Some people come in here looking for memories. They say they can’t remember something important, but they know it’s connected to this place. 
+They say they feel like they’ve been here before, even if they haven’t. I always find listening to music helps me sort things out”`,
     choices: [
-      { text: "Order a cider and wander over to the Jukebox", action: () => { state.cider = true; state.memory++; goTo('jukebox'); }  },  
+      { text: "Wander over to the Jukebox", action: () => { goTo('jukebox'); }  },  
       { text: "Leave and continue on elsewhere", action: () => goTo('investigationContinue') }
     ] 
   },  
   jukebox: {
     text: `You approach the jukebox, and as you scroll through the songs, two in particular catch your eye.`,
     choices: [
-      { text: "Play 'La Vie En Rose' ", action: () => { state.memory++; goTo('jukeboxRose'); } },
+      { text: "Play 'La Vie En Rose' ", action: () => { goTo('jukeboxRose'); } },
       { text: "Play 'Girl from Ipanema'", action: () => goTo('jukeboxIpanema') }
     ]
   },
@@ -264,23 +338,30 @@ Killian shrugs. “Not every song will unlock the right memory, Detective. But s
       { text: "Let the memory fade and keep investigating", action: () => goTo('investigationContinue') }
     ]
   },  
+
   kitchen: {
     text: () => {
       state.visited.kitchen = true;
       let txt = `<h2> The Kitchen </h2>
-      The kitchen looked like a war zone. Pots simmered with what looked like a tomato sauce, spaghetti piled high, chocolate everywhere, doughnuts… casualties of a previous conflict.`;
+      
+      The kitchen looked like a war zone. 
+      
+      Pots simmered with what looked like a tomato sauce, spaghetti piled high, chocolate everywhere, doughnuts… casualties of a previous conflict.`;
       if(state.chocolate && state.doughnut) txt += "\nKillian laughs: 'Detective, you really know how to handle a mess.'";
       return txt;
     },
     choices: [
       { text: "Eat spaghetti", action: () => goTo('investigationContinue') },
-      { text: "Inspect doughnut remains", action: () => { state.memory++; goTo('doughnutClue'); } },
+      { text: "Inspect doughnut remains", action: () => { goTo('doughnutClue'); } },
       { text: "Check chocolate stash", action: () => goTo('chocolateStash') }
     ]
   },
   chocolateStash: {
-    text: `You find a stash of chocolate bars hidden in the cupboard. The wrappers are crumpled, as if they’ve been handled a lot.
-Killian looks at you with a mix of amusement and admiration. “Detective, you have a knack for finding the sweet stuff. Maybe it’s a clue, or maybe it’s just a well-hidden stash. Can I try some?”`,
+    text: `You find a stash of chocolate bars hidden in the cupboard. The wrappers are crumpled and sticky, as if they’ve been handled a lot.
+
+    You frown, who keeps leaving chocolate everywhere?
+
+Killian looks at you with a mix of amusement and admiration. “Detective, you have a knack for finding the sweet stuff. Can I try some?”`,
     choices: [
       { text: "Take the chocolate and keep investigating", action: () => { state.chocolate = true; state.memory++; goTo('investigationContinue') } },
       { text: "Leave the chocolate and keep investigating", action: () =>  goTo('investigationContinue')}
@@ -291,7 +372,7 @@ Killian looks at you with a mix of amusement and admiration. “Detective, you h
 
     “Mmm, this doughnut is the perfect breakfast food.”`,
     choices: [
-      { text: "Keep the note and the doughnut", action: () => { state.doughnut = true; goTo('investigationContinue'); } },
+      { text: "Keep the note and the doughnut", action: () => { state.memory++; state.doughnut = true; goTo('investigationContinue'); } },
       { text: "Discard the note", action: () => goTo('investigationContinue') }
     ]
   },
@@ -314,27 +395,223 @@ Do I continue investigating?
         if(!state.visited.berties) options.push('berties');
         if(!state.visited.kitchen) options.push('kitchen');
         if(options.length > 0) goTo(options[0]);
-        else goTo('revealSetup');
+        else goTo('investigationStop');
       }},
       { text: "Confront Killian about what’s really going on", action: () => goTo('revealSetup') }
     ]
   },
-  revealSetup: { /* same as before */ },
-  amnesiaExplain: { /* same as before */ },
-  ringReveal: { /* same as before */ },
-  finalLine: { /* same as before */ }
+  investigationStop: {text: `You’ve investigated all the locations, but something still feels off. 
+
+    There’s a nagging feeling in the back of your mind that you’re missing something important. 
+
+    Maybe it’s time to confront Killian and get some answers.`, 
+    choices: [ { text: "Confront Killian about what’s really going on", action: () => goTo('revealSetup') } 
+    ] 
+  },
+ revealSetup: { 
+  text: () => {
+    let text = `You decide to confront Killian. You need to know what’s really going on.`;
+    let choices = [];
+
+    if (state.memory > 3 && state.chocolate && state.doughnut) {
+      text += `
+      You’ve pieced together enough clues to know that Killian is hiding something.
+
+      You’re ready to confront him with the evidence you’ve gathered.`;
+
+      choices = [
+        { text: "Confront Killian with the evidence", action: () => { state.ring = true; goTo('endingOne'); } }
+      ];
+    } else if (state.memory > 1 || state.chocolate || state.doughnut || state.cider) {
+      text += `
+      You're close, but don’t have all the pieces of the puzzle yet, but you can’t shake the feeling that Killian is hiding something.
+
+      You decide to confront him anyway, hoping to get some answers.`;
+
+      choices = [
+        { text: "Confront Killian", action: () => { state.ring = true; goTo('endingFour'); } }
+      ];
+    } else {
+      text += `
+      You don’t have much to go on, but you can’t shake the feeling that Killian is hiding something.
+
+      You decide to confront him anyway, hoping to get some answers.`;
+
+      choices = [
+        { text: "Confront Killian", action: () => goTo('endingThree') }
+      ];
+    }
+
+    return { text, choices };
+  }
+},
+
+    endingOne: {
+text: `
+You head back to you office with Killian. Your mind reeling with everything you've seen. 
+
+As you enter your office, you notice a small tower of cheerios on your desk. 
+
+Those cheerios. Ah fuck.
+
+You lay out all the evidence you’ve gathered: the chocolate, the doughnut note, the memories you’ve pieced together, and those blasted cheerios.
+
+Killian looks at you, a mix of resignation and admiration in his eyes. “I guess you’ve figured it out, Detective. 
+
+He slowly removes his tiny sock. Inside it… the ring.
+
+He presses a toy button.
+
+Confetti cannons go off.
+
+A banner drops from the ceiling:
+
+“HAPPY ANNIVERSARY, YOU DRAMATIC FOOL.”
+
+Bursting through the door, your fiancée Maisie comes running over and crashes into your arms, kissing you fiercely on the lips.
+
+Everything comes rushing back to you. 
+
+“You took my memories…to take me to our special places…to…surprise me?”
+
+Maisie laughs “Yep!! I obviously couldn’t give you amnesia in real life, so I built you this game instead!”
+
+“Happy Anniversary babe. <strong>I’m so glad we made it.</strong>” 
+
+Fade to black.
+
+.”`,
+choices: [
+  { text: "Play Again", action: () => {resetState(); goTo('start')} } ] 
+}, 
+
+endingTwo: { 
+  text: `
+ <h2> Unknown Location </h2>
+  Bright lights flash, and you feel a sharp pain in your head.
+  
+  When the pain subsides, you find yourself in a strange, dreamlike version of your office. The walls are shifting and changing, and you can hear whispers in the air.
+  
+  Strange clicking sounds and voices echo around you. The smell of antiseptic and feel of cold metal surrounds you. 
+  
+  You blink, and bug-like face hovers over you, its eyes glowing with an eerie light.
+  
+  It speaks in a voice that sounds like a thousand whispers all at once.
+  
+  "Patient 4792 accidentally broke through memory barriers. Reinitiate memory suppression protocol. Rebooting memory sequence. Please wait..."
+  
+  The world around you starts to fade, and you feel yourself slipping back into unconsciousness. When you wake up, you’re back in your office, the case files scattered around you. You have no memory of what just happened. 
+  
+  You’re left with a lingering feeling that you were close to something important, but it’s just out of reach.`, 
+  choices: [ 
+    { text: "Play Again", action: () => {resetState(); goTo('start')} }, 
+    ] 
+  }, 
+
+endingThree: { 
+
+  text: `
+  <h2> Your Office </h2>
+
+  You head back to you office with Killian. Your mind frustrated. 
+  
+  You confront Killian, but without any evidence, he just laughs it off.
+
+“You’re really something, Detective. You think you can just waltz in here and accuse me of something without any proof? 
+
+You’re out of your depth.
+
+It's time to go back to sleep."
+
+Quick as a flash, he cups his hand and blows into your face.
+
+You cough, your vision blurs, and everything goes dark. 
+
+When you wake up, you’re back in your office, the case files scattered around you. You have no memory of what just happened.
+
+You’re left with a lingering feeling that you were close to something important, but it’s just out of reach.`, 
+choices: [ 
+  { text: "Begin again", action: () => {resetState(); goTo('start')} }, ]
+    },
+
+endingFour: {text: `
+    <h2> Your Office </h2>
+  You head back to you office with Killian. Your mind reeling with everything you've seen. 
+  
+  You confront Killian, but without concrete evidence, he denies everything. 
+
+  He looks at you with a mix of amusement and pity. “You don’t have anything on me, Detective. 
+
+  You’re grasping at straws.”
+  
+  Your head spins with frustration and confusion. You know there’s something there, but you can’t prove it.
+  
+  You shove your hands into your pockets, looking for some chocolate to calm your nerves, but all you find is a crumpled note. 
+  
+  As you unfold, the ring falls out, landing on the floor with a soft clink.
+  
+  Killian’s eyes widen in shock, and for a moment, you see a flicker of fear. But then he quickly recovers, laughing it off as a coincidence.
+
+“You must have dropped that earlier, Detective. It’s not like it’s evidence or anything.”
+
+You stare at him, the weight of the moment sinking in. You know you’ve found the key piece of evidence, but without any other clues, it’s not enough to confront him with.
+
+You’re left with a lingering feeling that you were close to something important, but it’s just out of reach.
+
+Killian take the ring from you. "I guess this should go back to its rightful owner, huh?" he says. 
+
+He turns to leave the office, but you stop him.
+
+“Killian, wait. I know you’re hiding something. But...I don't know what.
+
+Why did you take it? Why did you leave clues for me to find?"
+
+Killian looks at you, a mix of sadness and resignation in his eyes. "But you didn't find them all, so I guess you don't know enough to understand. Maybe one day you will. But for now, I think it's best if we just... forget this ever happened."
+
+He leaves the office, taking the ring with him. 
+
+You’re left standing there, and a sense of loss and confusion washing over you.
+
+  `, 
+ 
+ choices: [ { text: "Play Again", action: () => {resetState(); goTo('start')} }, ] },
 };
+
 
 // Go to passage
 function goTo(pass) {
-  storyDiv.innerHTML = typeof passages[pass].text === 'function' ? passages[pass].text() : passages[pass].text;
+  const passage = passages[pass];
+
+  let content = {};
+  if (typeof passage.text === 'function') {
+    const result = passage.text();
+    if (typeof result === 'string') {
+      content.text = result;
+      content.choices = passage.choices; // fallback to static choices
+    } else {
+      content = result; // { text, choices }
+    }
+  } else {
+    content.text = passage.text;
+    content.choices = passage.choices;
+  }
+
+   storyDiv.innerHTML = content.text;
+  storyDiv.classList.remove("fade-in"); // reset animation
+  void storyDiv.offsetWidth; // trigger reflow
+  storyDiv.classList.add("fade-in");
+
   choicesDiv.innerHTML = '';
+
   updateInventory();
-  if(passages[pass].choices){
-    passages[pass].choices.forEach(choice => {
+  memoryCount();
+
+  if (content.choices) {
+    content.choices.forEach(choice => {
       const btn = document.createElement('button');
       btn.textContent = choice.text;
       btn.onclick = choice.action;
+      btn.classList.add("fade-in");
       choicesDiv.appendChild(btn);
     });
   }
