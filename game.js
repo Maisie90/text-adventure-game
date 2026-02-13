@@ -177,11 +177,7 @@ image:"assets/window.png",
     choices: [
       { text: "Examine the Desk", action: () => goTo('examineFiles') },
       { text: "Ask about the Case", action: () => goTo('investigationSetup') },
-      { text: "Ask about your Assistant", action: () => goTo('askAssistant') },
-      { text: "Go to ending 1", action: () => goTo('endingOne') },
-      { text: "Go to ending 2", action: () => goTo('endingTwo') },
-      { text: "Go to ending 3", action: () => goTo('endingThree') },
-      { text: "Go to ending 4", action: () => goTo('endingFour') }
+      { text: "Ask about your Assistant", action: () => goTo('askAssistant') }
     ]
   },
   examineFiles: {
