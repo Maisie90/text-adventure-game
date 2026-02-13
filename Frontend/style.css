@@ -69,17 +69,54 @@ button:hover {
     animation: fadeIn 2s ease;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); background-color: rgba(255, 255, 255, 0.6); box-shadow: 0 0 5px rgba(255,255,255,0.4); }
-    50% { transform: scale(1.05); background-color: rgba(255, 255, 255, 1); box-shadow: 0 0 15px rgba(255,255,255,0.8); }
-    100% { transform: scale(1); background-color: rgba(255, 255, 255, 0.6); box-shadow: 0 0 5px rgba(255,255,255,0.4); }
+@keyframes textGlow {
+  0% {
+    text-shadow: 0 0 0px rgb(245, 245, 242);
+  }
+  50% {
+    text-shadow: 0 0 8px rgb(255, 255, 255);
+  }
+  100% {
+    text-shadow: 0 0 0px rgb(255, 255, 255);
+  }
 }
 
 .updated {
-    animation: pulse 1s ease;
+  animation: textGlow 0.8s ease-out;
 }
 
+/* ------------------ Typing effect ------------------ */
 
+.typing {
+  display: inline-block;      /* Make sure ::after shows */
+  white-space: pre;           /* Preserve spaces and formatting */
+  position: relative;         /* optional, safe for pseudo */
+}
+
+.typing::after {
+  content: "|";
+  margin-left: 2px;
+  animation: blink 1s step-start infinite;
+  color: white;               /* or any color you want */
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ------------------ Scene Images ------------------ */
+
+#scene-image {
+    opacity: 0;              /* start hidden */
+    transition: opacity 1s ease-in-out;  /* smooth fade */
+    max-width: 100%;
+    margin-top: 1em;
+    display: block;
+}
+
+#scene-image.fade-in {
+    opacity: 1;              /* fully visible */
+}
 
 /* ------------------ Small screen adjustments ------------------ */
 @media (max-width: 600px) {
