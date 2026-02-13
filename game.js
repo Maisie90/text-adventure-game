@@ -171,7 +171,7 @@ Across from me stood my assistant. He was small, serious, and possessed a level 
 
 “This case is big, Detective,” he muttered, punctuating the sentence with a low, rumbling engine noise. His eyes glinted with the mischief of a man who held all the cards but preferred to let you sweat.
 
-I rubbed my temples. Memories, clues, and lost moments were tangled together like cheap wiring. I had a sinking feeling that the next step wouldn't just solve a case—it would change everything`,
+I rubbed my temples.  I had a sinking feeling that this case would change everything.`,
 
 image:"assets/window.png",
     choices: [
