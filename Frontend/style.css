@@ -304,21 +304,42 @@ body::after {
 } 
 
 /* ----------Confetti Mode----------------- */
-.confetti-mode #story {
-    border-top: 10px solid #ff0055; /* A bright "party" accent */
-    transition: all 0.5s ease;
+/* The 'Party Mode' state */
+body.confetti-mode {
+    /* overflow: hidden; Prevents scrollbars if confetti goes wild */
+    overflow-y:auto;
 }
 
-.confetti-mode body::after {
-    /* Changes the film grain to look like colorful "dots" for a second */
-    background-image: radial-gradient(#ff0 1px, transparent 1px), 
-                      radial-gradient(#0ff 1px, transparent 1px);
-    background-size: 20px 20px;
-    opacity: 0.3;
-    animation: confetti-drift 2s linear infinite;
+body.confetti-mode::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000; /* Stays on top of everything */
+    pointer-events: none; /* Allows you to still click buttons 'through' it */
+    
+    /* Creating 'Confetti' using a repeating radial gradient */
+    background-image: 
+        radial-gradient(circle, #ff0 2px, transparent 2px), 
+        radial-gradient(circle, #0ff 3px, transparent 3px),
+        radial-gradient(circle, #f0f 2px, transparent 2px),
+        radial-gradient(circle, #0f0 3px, transparent 3px);
+    background-size: 150px 150px;
+    background-position: 0 0, 50px 70px, 100px 20px, 30px 110px;
+    
+    animation: confetti-fall 4s linear infinite;
+    opacity: 0.6;
 }
 
-@keyframes confetti-drift {
-    from { background-position: 0 0; }
-    to { background-position: 100px 500px; }
+@keyframes confetti-fall {
+    from { background-position: 0 0, 50px 70px, 100px 20px, 30px 110px; }
+    to { background-position: 50px 1000px, 100px 1070px, 150px 1020px, 80px 1110px; }
+}
+
+/* Make the story text look extra special during the reveal */
+body.confetti-mode #story {
+    border: 3px solid #ffd700; /* Gold border for the anniversary */
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
 }

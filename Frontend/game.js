@@ -167,13 +167,13 @@ Your office smells of stale decaf coffee, chocolate wrappers, and something fain
 
 I hadn’t slept. My mind felt like a projector screen flickering with missing frames—jittery, fragmented, and curling at the edges like smoke. Sections of my life were offline, moments replaying in shards of light I couldn't piece together.
 
-Across from me sat my assistant. He was small, serious, and possessed a level of perception that would make a seasoned cop nervous. He was currently busy lining up a fleet of toy cars across my mahogany desk. Each one was in perfect formation, a silent, plastic army preparing for a battle I wasn't equipped to fight yet.
+Across from me stood my assistant. He was small, serious, and possessed a level of perception that would make a seasoned cop nervous. He was currently busy lining up a fleet of toy cars across my mahogany desk. Each one was in perfect formation, a silent, plastic army preparing for a battle I wasn't equipped to fight yet.
 
 “This case is big, Detective,” he muttered, punctuating the sentence with a low, rumbling engine noise. His eyes glinted with the mischief of a man who held all the cards but preferred to let you sweat.
 
 I rubbed my temples. Memories, clues, and lost moments were tangled together like cheap wiring. I had a sinking feeling that the next step wouldn't just solve a case—it would change everything`,
 
-image:"assets/office.png",
+image:"assets/window.png",
     choices: [
       { text: "Examine the Desk", action: () => goTo('examineFiles') },
       { text: "Ask about the Case", action: () => goTo('investigationSetup') },
@@ -188,12 +188,13 @@ image:"assets/office.png",
     text: `<h3> Your Files </h3>
 The files on my desk were organized according to a filing system known only to toddler-savants and high-level double agents. 
 
-**The Missing Ring** was tucked into a manila folder, its gravity undermined slightly by the neon dinosaur stickers guarding the bottom corner. A T-Rex looked at me with predatory judgment.
+**The Missing Ring** was tucked into a manila folder, its gravity undermined slightly by the smears of raspberries and dinosaur stickers guarding the bottom corner. A T-Rex looked at me with predatory judgment.
 
 **The Doughnut Dispute** sat nearby, its edges marked by sticky, incriminating fingerprints. 
 
-Beneath it all, buried under the weight of the world, was **The Vanishing of the Chocolate Milk**. It was marked in red crayon: *“Priority: High.”*`,
-    choices: [
+Beneath it all, buried under the weight of the world, was **The Vanishing of the Chocolate Milk**. It was marked in red crayon: “Priority: High.”`,
+image:"assets/desk.png",    
+choices: [
       { text: "Ask about the Case", action: () => goTo('investigationSetup') },
       { text: "Ask about your Assistant", action: () => goTo('askAssistant') }
     ]
@@ -205,7 +206,7 @@ Killian rolled his eyes, a gesture of pure, unfiltered expertise. He looked at m
 “My name is Killian,” he said, adjusting his invisible tie. “But on the streets... they call me Kili." 
     
 He leaned in, his voice dropping to a confidential whisper. "I have three passions, Detective: vehicles of all kinds, high-percentage chocolate, and the number 8. Chocolate muffins, biscuits, sandwiches... if it’s cocoa-based, I’m the man for the job.”`,
-
+image:"assets/killian.png",
     choices: [
       { text: "Ask about the Case", action: () => goTo('investigationSetup') },
       { text: "Examine the Desk", action: () => goTo('examineFiles') },
@@ -223,8 +224,10 @@ Killian sighed, a heavy, world-weary sound usually reserved for when it’s time
 
 He trailed off, his gaze drifting to the window. I tried to push. “So… what else are we looking for?”
 
-“It’s… complicated. My hands are tied.” Killian slid a file across the desk with practiced precision, despite his fingers being slightly tacky from a recent snack. Inside was a map of locations—a trail leading straight into the heart of my own hazy memory.`,
+“It’s… complicated. My hands are tied.” 
 
+Killian slid a file across the desk with practiced precision, despite his fingers being slightly tacky from a recent snack. Inside was a map of locations—a trail leading straight into the heart of my own hazy memory.`,
+image:"assets/ringfile.png",
 choices: [
       { text: "Ask about your Assistant", action: () => goTo('askAssistant') },
       { text: "Examine the Desk", action: () => goTo('examineFiles') },
@@ -264,12 +267,12 @@ Something about the air here felt... heavy. Not with crime, but with history. Th
 
 Killian zoomed his toy spitfire through the damp air, the plastic engine whining against the silence. 
 
-**“This is where it happened, Detective,”** he said, his eyes scanning the horizon. **“Not a heist. Not a hit. Something much more dangerous.”**`
+“This is where it happened, Detective,” he said, his eyes scanning the horizon. “Not a heist. Not a hit. Something much more dangerous.”`
 ;
       if(state.memory > 1) txt += "\nKillian whispers: 'Detective, you've been here before, but the memory's clearer now.'";
       return txt;
     },
-     
+     image:"assets/thehill.png",
     choices: [
       { text: "Search the bushes", action: () =>  goTo('gardenBushes') },
       { text: "Reflect quietly", action: () =>  {state.reflect = true; goTo('gardenReflect') }},
@@ -279,7 +282,10 @@ Killian zoomed his toy spitfire through the damp air, the plastic engine whining
     text: `<h3> Shrubbery Surveillance </h3>
 I parted the damp leaves, expecting a discarded weapon or a hidden wire. Instead, I found... a puddle of chocolate. It was tucked away in a corner of the greenery where no candy had any business being.
 
-Killian appeared behind me, nodding solemnly. **“Detective, you found the contraband! Is it a clue? Is it a snack? In this town, sometimes they’re one and the same. Either way, it’s part of the file now.”**`,
+Killian appeared behind me, nodding solemnly. 
+
+“Detective, you found the contraband! Is it a clue? Is it a snack? In this town, sometimes they’re one and the same. Either way, it’s part of the file now.”`,
+image:"assets/thehill.png",
 choices: [
   { text: "Keep the chocolate and take a moment to reflect", action: () => { state.reflect = true; state.chocolate = true; goTo('gardenReflect'); } },
   { text: "Ignore the chocolate clue", action: () => goTo('investigationContinue') }
@@ -292,7 +298,8 @@ I took a seat on a weather-beaten bench, letting the rain mist over my face. The
 I closed my eyes, and the world shifted. The rain felt warmer. 
 
 A memory clawed its way to the surface: a sound of laughter, the warmth of a hand in mine, and the distant, unmistakable sparkle of... something precious. Something I’d sworn to protect.`,
-  choices: [
+image:"assets/thehill.png",  
+choices: [
     { text: "Hold onto the memory", action: () => { state.reflect = true; state.memory++; goTo('gardenMemory'); } },
     { text: "Push the memory away", action: () => { state.reflect = true; goTo('investigationContinue')} }
   ]
@@ -303,8 +310,8 @@ The memory was a hazy film strip, flickering in the dark. I could see a figure s
 
 The figure looked up, and for a split second, the sea-green eyes pierced through the gloom. I heard laughter on the wind, light and musical. 
 
-Then the film snapped. The vision was replaced by the taste of chocolate and a single, haunting whisper that seemed to come from the trees themselves: **“Remember.”**`,
-
+Then the film snapped. The vision was replaced by the taste of chocolate and a single, haunting whisper that seemed to come from the trees themselves: “Remember.”`,
+image:"assets/proposal.png",
   choices: [  
     { text: "Ask Killian what’s important", action: () => goTo('gardenAsk') },
     { text: "Move on", action: () => goTo('investigationContinue') }
@@ -317,6 +324,7 @@ I turned to Killian, hoping for a hint about what’s so important about the gar
 Killian sighs dramatically, flicking a cheerio across the ground with his toy train.
 
 “I can’t tell you, Detective. It’s too important. You have to find it yourself.”`,
+image:"assets/thehill.png",
 choices: [
   { text: "Press Killian for more information", action: () => goTo('moreInformation') }, 
   { text: "Accept the mystery and keep investigating", action: () => goTo('investigationContinue') }
@@ -326,19 +334,22 @@ moreInformation: {
   text: `<h3> Pressure Tactics </h3>
 Killian looked at me, a flash of frustration crossing his face, followed by a fleeting, mischievous amusement.
 
-**“Fine,”** he snapped, crossing his arms over his chest. **“The gardens are where the world changed. It’s not just a stop on the map. It’s personal. It’s the origin story. But that’s the end of the line for me. The rest is in your head.”**`,
-
-  choices: (() => {
+“Fine,” he snapped, crossing his arms over his chest. “The gardens are where the world changed. It’s not just a stop on the map. It’s personal. It’s the origin story. But that’s the end of the line for me. The rest is in your head.”`,
+image:"assets/thehill.png",
+choices: () => {
     let options = [
       { text: "Accept the vague information and keep investigating", action: () => goTo('investigationContinue') }
     ];
 
-    if (state.reflect === false) {
-      options.push({ text: "Reflect quietly", action: () => goTo('gardenReflect') });
+    if (!state.reflect) {
+      options.push({ 
+        text: "Reflect quietly", 
+        action: () => { state.reflect = true; goTo('gardenReflect'); } 
+      });
     }
 
     return options;
-  })()
+  }
 },
   berties: {
     text: () => {
@@ -352,6 +363,7 @@ As I approached a specific table in the shadows, a dull throb began behind my ey
       if(state.memory > 1) txt += "\nKillian smirks: 'Detective, déjà vu? Or just clever planning?'";
       return txt;
     },
+    image:"assets/berties.png",
     choices: [
       { text: "Inspect the table", action: () => { goTo('bertiesTable'); } },
       { text: "Ask bartender for clues", action: () => { goTo('bertiesBartender'); } }
@@ -366,11 +378,11 @@ On the floor, a handful of Cheerios were scattered across the scuffed wood—som
 A cold shiver of Déjà Vu crawled up my spine. I knew this mess. I’d seen this arrangement before. 
 
 “Have I been here before?” I whispered to the empty air.`,
-
+image:"assets/table.png",
     choices: [
       { text: "Take a photo and leave", action: () => { state.memory++; goTo('investigationContinue'); } },
       {text: "Inspect further", action: () => goTo('metallicChip') },  
-      { text: "Finish the cider and head over to the bartender", action: () => goTo('bertiesBartender') }
+      { text: "Finish the Guinness and head over to the bartender", action: () => goTo('bertiesBartender') }
     ]
   },
 
@@ -380,8 +392,8 @@ I knelt down, the floorboards groaning under my weight. I reached for the small,
 
 Killian watched me from the shadows, his expression uncharacteristically grave. 
 
-**“Some things are better left alone, Detective,”** he warned, his voice sounding far older than his two-and-a-half years. **“Not every treasure wants to be found. Some edges still cut.”**`,
-
+“Some things are better left alone, Detective,” he warned, his voice sounding far older than his two-and-a-half years. “Not every treasure wants to be found. Some edges still cut.”`,
+image:"assets/tablechip.png",
 choices: [{ text: "Keep the chip and continue investigating", action: () => { state.chip = true; state.memory++; goTo('endingTwo'); } }, 
   { text: "Discard the chip and continue investigating", action: () => goTo('bertiesBartender') } ] },
 
@@ -393,7 +405,7 @@ The bartender wiped down a glass with a rag that had seen better decades. He loo
 “You look like you’ve seen a ghost,” he rumbled. “Or maybe you just finally caught up with a memory that’s been chasing you.
 
 You’re not the first one to walk through those doors looking for something they left behind in the dark.”`,
-
+image:"assets/berties.png",
     choices: [
       { text: "Order a Guinness & enquire further", action: () => {state.guinness = true; state.memory++; goTo('bartenderMemory')} },  
       { text: "Wander over to the Jukebox", action: () =>  goTo('jukebox')  },
@@ -406,8 +418,9 @@ The bartender leaned over the mahogany, lowering his voice until it was just a r
 
 “People come in here for two reasons: to forget or to find. They say they’ve lost something vital, something connected to the very air in this room. 
 
-They feel the pull of the place, even if the details are gone. Usually,” he nodded toward the corner, **“I find that listening to the music helps the pieces fall into place. The rhythm knows things the mind forgets.”**`,
-    choices: [
+They feel the pull of the place, even if the details are gone. Usually,” he nodded toward the corner, “I find that listening to the music helps the pieces fall into place. The rhythm knows things the mind forgets.”`,
+    image:"assets/berties.png",
+choices: [
       { text: "Wander over to the Jukebox", action: () => { goTo('jukebox'); }  },  
       { text: "Leave and continue on elsewhere", action: () => goTo('investigationContinue') }
     ] 
@@ -417,7 +430,8 @@ They feel the pull of the place, even if the details are gone. Usually,” he no
 The jukebox glowed with an amber light, humming like a living thing. 
 
 As I scrolled through the dusty selection, two tracks seemed to vibrate with a strange energy, as if they were highlighted by fate.`,
-    choices: [
+image:"assets/jukebox.png",    
+choices: [
       { text: "Play 'La Vie En Rose' ", action: () => { goTo('jukeboxRose'); } },
       { text: "Play 'Girl from Ipanema'", action: () => goTo('jukeboxIpanema') }
     ]
@@ -430,10 +444,10 @@ Suddenly, I wasn't in a dive bar. I was by the sea. I was dancing in a kitchen. 
 
 "I love this song," I whispered, the scent of salt air and chocolate momentarily masking the smell of the bar. 
 
-Then, a voice, soft as a secret, breathed into my ear: *“I love you, Myles.”*
+Then, a voice, soft as a secret, breathed into my ear: “I love you, Myles.”
 
-Killian looked up from his toy train with a knowing, gentle smile. **“Music is the key to the vault, Detective. Sometimes it’s the only way to crack the case of the heart.”**`,
-
+Killian looked up from his toy train with a knowing, gentle smile. “Music is the key to the vault, Detective. Sometimes it’s the only way to crack the case of the heart.”`,
+image:"assets/jukebox.png",
     choices: [
       { text: "Hold onto the memory", action: () => { state.memory++; goTo('investigationContinue'); } },
       { text: "Let the memory fade and keep investigating", action: () => goTo('investigationContinue') }
@@ -449,8 +463,8 @@ A flash of sea-green eyes flickered in my mind, rolling with affectionate derisi
 
 “Whose eyes are those… and why can’t I stop smiling?”
 
-Killian gave a tiny, nonchalant shrug. **“Not every song unlocks a door, Detective. Sometimes they just remind you that life isn't always a tragedy. Sometimes, it’s a comedy.”**`,
-
+Killian gave a tiny, nonchalant shrug. “Not every song unlocks a door, Detective. Sometimes they just remind you that life isn't always a tragedy. Sometimes, it’s a comedy.”`,
+image:"assets/jukebox.png",
     choices: [
       { text: "Try to hold onto the memory", action: () => goTo('investigationContinue') },
       { text: "Let the memory fade and keep investigating", action: () => goTo('investigationContinue') }
@@ -470,6 +484,7 @@ Mountains of spaghetti stood tall, and chocolate bars lay scattered like fallen 
       if(state.chocolate) txt += "\nKillian laughs: 'Detective, you really know how to handle a mess.'";
       return txt;
     },
+    image:"assets/kitchen.png",
     choices: [
       { text: "Eat spaghetti", action: () => goTo('eatSpaghetti') },
       { text: "Inspect doughnut remains", action: () => { goTo('doughnutClue'); } },
@@ -482,8 +497,8 @@ I twirled the carbs around my fork like I was interrogating a suspect. The taste
 
 Killian watched me chew, his expression a mix of professional amusement and mild concern. 
 
-**“Careful, Detective,”** he murmured, leaning against the fridge. **“Are you sure you want to dig that deep? Sometimes the things we swallow are harder to digest than a simple mystery.”**`,
-
+“Careful, Detective,” he murmured, leaning against the fridge. “Are you sure you want to dig that deep? Sometimes the things we swallow are harder to digest than a simple mystery.”`,
+image:"assets/kitchen.png",
 choices: [
   { text: "Keep eating the spaghetti and see if it triggers any memories", action: () => goTo('investigationContinue') },
   { text: "Stop eating and inspect the kitchen further", action: () => goTo('kitchen') }
@@ -495,8 +510,9 @@ I found the motherlode tucked away in the back of a cupboard. A stash of chocola
 
 I frowned. This city was covered in chocolate. Who was the ghost leaving these sugary breadcrumbs everywhere?
 
-Killian appeared at my elbow, looking at the stash with unmasked admiration. **“Detective, you have a nose for the sweet stuff. A real knack for finding the treasures. Think you could... share the intel? Strictly for research, of course.”**`,
-    choices: [
+Killian appeared at my elbow, looking at the stash with unmasked admiration. “Detective, you have a nose for the sweet stuff. A real knack for finding the treasures. Think you could... share the intel? Strictly for research, of course.”`,
+image:"assets/kitchen.png",    
+choices: [
       { text: "Take the chocolate and keep investigating", action: () => { state.chocolate = true; state.memory++; goTo('investigationContinue') } },
       { text: "Leave the chocolate and keep investigating", action: () =>  goTo('investigationContinue')}
     ]
@@ -505,10 +521,10 @@ Killian appeared at my elbow, looking at the stash with unmasked admiration. **�
     text: `<h3> Exhibit D: The Doughnut </h3>
 It was a half-eaten glazed doughnut, a jagged bite taken out of the side like a shark attack. Tucked into the cardboard box was a scrap of paper with a handwritten confession:
 
-*“Mmm, this doughnut is the perfect breakfast food.”*
+“Mmm, this doughnut is the perfect breakfast food.”
 
 I stared at the note. It was a bold move. A breakfast rebel was on the loose.`,
-
+image:"assets/doughnote.png",
     choices: [
       { text: "Keep the note and the doughnut", action: () => { state.memory++; state.doughnut = true; goTo('investigationContinue'); } },
       { text: "Discard the note", action: () => goTo('kitchen') }
@@ -522,7 +538,7 @@ The truth was surfacing, and it looked a lot like a memory I should have never l
 
 Do I keep digging, or am I ready to see the whole picture?`;
 
-      if(state.memory > 3) text += `\n\nKillian grinned, a flash of pure mischief. **“You’re right on the edge, Detective. Can you feel it? The moment it all comes back?”**`;;
+      if(state.memory > 3) text += `\n\nKillian grinned, a flash of pure mischief. “You’re right on the edge, Detective. Can you feel it? The moment it all comes back?”`;;
       return text;
     },
     choices: [
@@ -541,17 +557,18 @@ Do I keep digging, or am I ready to see the whole picture?`;
  revealSetup: { 
   text: () => {
     let text = `The time for shadow-boxing was over. I turned to Killian. I needed the truth, even if it meant the end of the mystery.`;
+    let image = "assets/corkboard.png";
     let choices = [];
 
-    if (state.memory > 3 && state.chocolate && state.doughnut && state.guiness) {
-      text += `\n\n**The evidence was overwhelming.** The stickers, the snacks, the whispered memories... it all pointed to one person. 
+    if (state.memory > 3 && state.chocolate && state.doughnut && state.guinness) {
+      text += `\n\nThe evidence was overwhelming. The stickers, the snacks, the whispered memories... it all pointed to one person. 
       
       I was ready to crack this case wide open and confront my small associate with the cold, hard facts.`;
 
       choices = [
-        { text: "Confront Killian with the evidence", action: () => { state.ring = true; goTo('endingOne'); document.body.classList.add('confetti-mode') } }
+        { text: "Confront Killian with the evidence", action: () => { state.ring = true;  document.body.classList.add('confetti-mode'); goTo('endingOne'); } }
       ];
-    } else if (state.memory > 1 || state.chocolate || state.doughnut || state.guiness) {
+    } else if (state.memory > 1 || state.chocolate || state.doughnut || state.guinness) {
            text += `\n\nI didn't have the full picture yet, but I had enough. The feeling in my gut was louder than the rain outside. 
            
            Killian was holding out on me, and I was going to get something out of him.`;
@@ -569,7 +586,7 @@ Do I keep digging, or am I ready to see the whole picture?`;
       ];
     }
 
-    return { text, choices };
+    return { text, choices, image };
   }
 },
 
@@ -583,13 +600,13 @@ He’d been everywhere. My assistant wasn't just following me; he was the archit
 
 I laid out the evidence like a winning poker hand: the chocolate, the doughnut manifesto, the shards of memory, and those blasted Cheerios. Killian looked at me, a glimmer of genuine professional admiration in his eyes.
 
-**“I guess you’ve cracked the vault, Detective,”** he said softly. 
+“I guess you’ve cracked the vault, Detective.” he said softly. 
 
 With the dramatic flair of a seasoned informant, he slowly removed his tiny sock. Tucked inside, gleaming like a promise, was the ring.
 
 He pressed a toy button. *Click.*
 
-Confetti cannons detonated, filling the air with paper rain. A banner unfurled from the ceiling in a flurry of color: **“HAPPY ANNIVERSARY!”**
+Confetti cannons detonated, filling the air with paper rain. A banner unfurled from the ceiling in a flurry of color: “HAPPY ANNIVERSARY!”
 
 The door burst open. Maisie — the woman from the memories, the eyes from my dreams — came charging in. She crashed into my arms, her kiss effectively ending my career as a lonely detective.
 
@@ -597,14 +614,14 @@ The fog cleared. The "amnesia" vanished.
 
 “You took my memories… to lead me back to our places? To surprise me?” I asked, breathless.
 
-Maisie laughed, a sound better than any jukebox melody. **“Yep! I couldn't exactly give you amnesia in real life, so I built you this game instead!”**
+Maisie laughed, a sound better than any jukebox melody. 
 
-She pulled me closer. **“Happy Anniversary, babe. I’m so glad we made it.”**
+“Yep! I couldn't exactly give you amnesia in real life, so I built you this game instead!”
 
-Fade to black.`,
+She pulled me closer. <emphasis>“Happy Anniversary, babe. I’m so glad we made it.”</emphasis>`,
 image:"assets/anniversary.png",
 choices: [
-  { text: "Play Again", action: () => {resetState(); goTo('start')} } ] 
+  { text: "Play Again", action: () => {document.body.classList.remove('confetti-mode');resetState(); goTo('start')} } ] 
 }, 
 
 endingTwo: { 
@@ -615,7 +632,7 @@ The office began to liquefy. The walls shifted into cold, sterile panels, and th
 
 I blinked, and a bug-like silhouette hovered over me, its eyes glowing with the cold light of a thousand dying stars. When it spoke, it wasn't a voice—it was a data stream.
 
-**"Patient 4792 accidentally broke through memory barriers. Reinitiate memory suppression protocol. Rebooting sequence... Please wait."**
+"Patient 4792 accidentally broke through memory barriers. Reinitiate memory suppression protocol. Rebooting sequence... Please wait."
 
 The world dissolved into static. I felt myself slipping into a deep, synthetic sleep. When I finally opened my eyes, I was back at my desk, the files scattered, the rain tapping on the glass. 
 
@@ -632,9 +649,9 @@ endingThree: {
   text: `<h2> A Cold Goodbye </h2>
 I sat across from Killian, my mind a mess of half-formed suspicions and zero proof. I tried to corner him, to demand the truth, but I was playing a game without any cards.
 
-Killian leaned back, a cold, mocking laugh escaping him. **“You’re really something, Detective. You think you can accuse a man of my standing without a shred of evidence? You’re out of your depth.”**
+Killian leaned back, a cold, mocking laugh escaping him. “You’re really something, Detective. You think you can accuse a man of my standing without a shred of evidence? You’re out of your depth.”
 
-He stood up, looking down at me with pity. **“It's time to go back to sleep.”**
+He stood up, looking down at me with pity. “It's time to go back to sleep.”
 
 Before I could move, he cupped his hand and blew a fine, sweet-smelling dust into my face. My vision blurred. The office spun. The floor rose up to meet me like an old friend.
 
@@ -648,17 +665,23 @@ endingFour: {
   text: `<h2> Close, But No Cigar </h2>
 I confronted him with everything I had, but without the full trail of clues, Killian just looked at me with a weary sort of disappointment.
 
-**“You’re grasping at straws, Detective. You have the heart for the job, but not the eyes.”**
+“You’re grasping at straws, Detective. You have the heart for the job, but not the eyes.”
 
-Frustrated, I shoved my hands into my pockets, searching for a piece of chocolate to steady my nerves. My fingers brushed something cold. I pulled it out—a crumpled note. As it unfolded, the ring tumbled out, clinking against the floorboards.
+Frustrated, I shoved my hands into my pockets, searching for a piece of chocolate to steady my nerves. 
+
+My fingers brushed something cold. 
+
+I pulled it out—a crumpled note. As it unfolded, the ring tumbled out, clinking against the floorboards.
 
 Killian froze. For a split second, the mask slipped, and I saw a flicker of genuine shock. But then, the professional returned. He laughed it off—a hollow, practiced sound.
 
-**“I guess this should go back to its rightful owner, huh?”** he said, snatching the ring before I could react. 
+“I guess this should go back to its rightful owner, huh?” he said, snatching the ring before I could react. 
 
 “Killian, wait!” I shouted as he turned for the door. “I know you’re hiding the 'Why.' Why the clues? Why the trail?”
 
-He paused at the threshold, his silhouette dark against the hallway light. **“Because you didn't find them all, Myles. And without the 'all,' you'll never understand the 'Why.' Maybe next time you'll be faster. For now... let’s just forget this happened.”**
+He paused at the threshold, his silhouette dark against the hallway light. 
+
+“Because you didn't find them all, Myles. And without the 'all,' you'll never understand the 'Why.' Maybe next time you'll be faster. For now... let’s just forget this happened.”
 
 He vanished into the corridor, taking the ring and the truth with him. I’m left in the silence of an empty office, wondering what I missed.`, 
 
@@ -681,7 +704,7 @@ function goTo(pass) {
     const result = passage.text();
     if (typeof result === 'string') {
       content.text = result;
-      content.choices = passage.choices; 
+      content.choices = typeof passage.choices === 'function' ? passage.choices() : passage.choices;
     } else {
       content = result; // overwrite text & choices
       // Ensure the image carries over even if the function returns an object
@@ -689,7 +712,7 @@ function goTo(pass) {
     }
   } else {
     content.text = passage.text;
-    content.choices = passage.choices;
+    content.choices = typeof passage.choices === 'function' ? passage.choices() : passage.choices;
     content.image = passage.image;
   }
 
