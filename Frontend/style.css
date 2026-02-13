@@ -1,130 +1,324 @@
+/* ------------------ Base Styles ------------------ */
 body {
-  background-color: #111827;
-  color: #e5e7eb;
-  font-family: 'Courier New', monospace;
-  padding: 20px;
+    background-color: #111827;
+    color: #e5e7eb;
+    font-family: 'Courier New', monospace;
+    padding: 20px;
+    margin: 0;
 }
 
+
+
 h1 {
-  text-align: center;
-  color: #e5e7eb;
+    text-align: center;
+    color: #e5e7eb;
+    opacity: 0.9;
+    transform: rotate(-0.5deg); /* Nothing is perfectly straight in a real file */
+}
+
+/* ------------------ Layout Container ------------------ */
+.game-container {
+    display: flex;
+    align-items: center;    /* Vertically centers the image to the text */
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
+    min-height: 400px;      /* Prevents the layout from collapsing */
 }
 
 #story {
+  flex: 1;
   margin-bottom: 20px;
-  line-height: 1.5;
-  white-space: pre-line;
+  line-height: 1.6;
+  min-height: 400px;
+  position: relative;
+  padding: 50px;
+  
+  /* 1. Base Manila Color */
+  background-color: #e8d9b5; 
+
+  /* 2. Visual Effects: Lamp Highlight + Subtle Fiber Grain */
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15) 0%, transparent 50%),
+    repeating-linear-gradient(45deg, rgba(0,0,0,0.01) 0px, rgba(0,0,0,0.01) 1px, transparent 1px, transparent 2px);
+  
+  /* 3. The "Inked" Text Color */
+  color: #2b1d0e; 
+
+  /* 4. Physical Folder Shapes */
+  border-radius: 2px 50px 5px 5px; /* Rounded top-right for the folder tab */
+  border-left: 15px solid #d4c396; /* Darker 'spine' crease */
+  
+  /* 5. Depth on the desk */
+  box-shadow: 
+    2px 0px 5px rgba(0,0,0,0.1), /* Spine shadow */
+    10px 15px 30px rgba(0,0,0,0.5); /* Outer shadow */
 }
 
+/* Make the text look slightly stamped into the paper */
+#story p {
+    font-weight: 500;
+    opacity: 0.9;
+    letter-spacing: 0.3px;
+}
+
+/* Update headers to look like stamped ink */
+ #story h1, #story h2, #story h3 {
+    color: #4a3728;
+    text-transform: uppercase;
+    text-shadow: 0.5px 0.5px 1px rgba(43, 29, 14, 0.15);
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    margin-top: 0;
+    opacity: 0.9;
+    transform: rotate(-0.5deg); /* Nothing is perfectly straight in a real file */
+}
+
+
+
+/* ------------------ Scene Image & Paperclip ------------------ */
+#scene-image-container {
+    display: none;          /* Hidden by JS when no image exists */
+    position: relative;
+    flex: 0 0 450px;        /* Fixed width for the photo side */
+    padding-top: 25px;      /* Room for the paperclip */
+    margin: 0;
+    justify-content: center;
+}
+
+#scene-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border: 12px solid #f3f3f3;
+    border-bottom-width: 40px;
+    box-shadow: 4px 10px 20px rgba(0,0,0,0.8);
+    transform: rotate(2deg); /* Slightly tilted evidence look */
+    filter: sepia(0.2) contrast(1.1);
+    transition: opacity 1s ease-in-out;
+}
+
+/* The Paperclip (CSS Only) */
+#scene-image-container::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 45px;
+    border: 3px solid #9ca3af; 
+    border-radius: 20px;
+    background: rgba(156, 163, 175, 0.1);
+    backdrop-filter: blur(1px);
+    z-index: 100;
+    box-shadow: 1px 2px 4px rgba(0,0,0,0.5);
+}
+
+#scene-image-container::after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 25px;
+    border-left: 2px solid #9ca3af;
+    border-bottom: 2px solid #9ca3af;
+    border-radius: 0 0 0 10px;
+    z-index: 101;
+}
+
+/* The examination effect */
+#scene-image {
+    /* ... keep your existing styles ... */
+    cursor: zoom-in; /* Changes the mouse to a magnifying glass */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0.3s;
+    position: relative;
+    z-index: 10;
+}
+
+#scene-image:hover {
+    transform: scale(1.15) rotate(0deg); /* Grows by 15% and straightens */
+    box-shadow: 15px 30px 50px rgba(0,0,0,0.9); /* Deeper shadow makes it look lifted */
+    z-index: 500; /* Ensures it stays on top of the paperclip and text */
+    filter: sepia(0.1) brightness(1.1);
+}
+
+/* Optional: Make the paperclip fade slightly so it doesn't block the view */
+#scene-image-container:hover::before,
+#scene-image-container:hover::after {
+    opacity: 0.2;
+    transition: opacity 0.3s ease;
+}
+
+/* ------------------ Game Elements ------------------ */
 button {
-  display: block;
-  margin: 5px 0;
-  background-color: #22505f;
-  color: #e5e7eb;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 1em;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 10px auto;
+    background-color: #22505f;
+    color: #e5e7eb;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1em;
+    border-radius: 4px;
+    transition: all 0.2s;
 }
 
 button:hover {
-  background-color: #1f3f4b;
-   transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+    background-color: #1f3f4b;
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
 }
 
 .inventory, .memory {
-  font-size: 0.9em;
-  color: #6b7280;
-  margin-top: 10px;
-   transition: all 0.2s ease;
+    font-size: 0.9em;
+    color: #6b7280;
+    margin-top: 10px;
+    text-align: center;
 }
-
-
-/* Optional subtle vignette effect */
-#story::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 14px;
-    background: radial-gradient(circle, rgba(255,255,255,0.02) 0%, transparent 80%);
-    pointer-events: none;
-}
-
-
-
-
-
 
 /* ------------------ Animations ------------------ */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(5px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 .fade-in {
-    animation: fadeIn 2s ease;
+    animation: fadeIn 1.5s ease forwards;
 }
-
-@keyframes textGlow {
-  0% {
-    text-shadow: 0 0 0px rgb(245, 245, 242);
-  }
-  50% {
-    text-shadow: 0 0 8px rgb(255, 255, 255);
-  }
-  100% {
-    text-shadow: 0 0 0px rgb(255, 255, 255);
-  }
-}
-
-.updated {
-  animation: textGlow 0.8s ease-out;
-}
-
-/* ------------------ Typing effect ------------------ */
 
 .typing {
-  display: inline-block;      /* Make sure ::after shows */
-  white-space: pre;           /* Preserve spaces and formatting */
-  position: relative;         /* optional, safe for pseudo */
+    display: block;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    position: relative;
+    color: #2b1d0e; /* Dark espresso brown ink */
+    font-weight: 500;
 }
 
 .typing::after {
-  content: "|";
-  margin-left: 2px;
-  animation: blink 1s step-start infinite;
-  color: white;               /* or any color you want */
+    content: "|";
+    margin-left: 2px;
+    animation: blink 1s step-start infinite;
+    color: #2b1d0e !important;
 }
 
-@keyframes blink {
-  50% { opacity: 0; }
-}
+@keyframes blink { 50% { opacity: 0; } }
 
-/* ------------------ Scene Images ------------------ */
-
-#scene-image {
-    opacity: 0;              /* start hidden */
-    transition: opacity 1s ease-in-out;  /* smooth fade */
-    max-width: 100%;
-    margin-top: 1em;
-    display: block;
-}
-
-#scene-image.fade-in {
-    opacity: 1;              /* fully visible */
-}
-
-/* ------------------ Small screen adjustments ------------------ */
-@media (max-width: 600px) {
-    #story, #choices, #inventory, #memory {
-        width: 95%;
+/* ------------------ Mobile Adjustments ------------------ */
+@media (max-width: 800px) {
+    .game-container {
+        flex-direction: column-reverse; /* Image moves above text on mobile */
+        gap: 20px;
     }
-    #choices button {
-        font-size: 14px;
-        padding: 12px;
+    
+    #scene-image-container {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 300px;
     }
+
+    #story {
+        min-height: auto;
+        padding: 0 10px;
+    }
+}
+
+/* ------------------ Splash Screen ------------------ */
+#splash-screen {
+    position: fixed;
+    inset: 0;
+    background-color: #111827; /* Matches body background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 1s ease, visibility 1s;
+}
+
+.folder-cover {
+    background-color: #c2b280; /* Manila folder color */
+    padding: 60px;
+    border-radius: 5px 40px 5px 5px; /* Angled folder tab look */
+    box-shadow: 20px 20px 60px rgba(0,0,0,0.7);
+    text-align: center;
+    color: #3e2723; /* Dark ink color */
+    border-left: 15px solid #a8996d; /* Folder spine */
+    max-width: 400px;
+}
+
+.folder-cover h1 {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: #3e2723;
+    border-bottom: 2px solid #3e2723;
+    padding-bottom: 10px;
+}
+
+.folder-cover p {
+    letter-spacing: 5px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#start-button {
+    margin-top: 40px;
+    background-color: #3e2723;
+    color: #c2b280;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+}
+
+/* Hidden state */
+#splash-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* ------------------ Film Grain Overlay ------------------ */
+body::after {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  /* This creates a procedural noise texture */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.01; /* Adjust for more or less grit */
+  pointer-events: none;
+  z-index: 9999;
+  animation: grain-flicker 0.2s steps(2) infinite;
+}
+
+@keyframes grain-flicker {
+  0% { transform: translate(0,0); }
+  50% { transform: translate(-1%, -1%); }
+  100% { transform: translate(1%, 1%); }
+} 
+
+/* ----------Confetti Mode----------------- */
+.confetti-mode #story {
+    border-top: 10px solid #ff0055; /* A bright "party" accent */
+    transition: all 0.5s ease;
+}
+
+.confetti-mode body::after {
+    /* Changes the film grain to look like colorful "dots" for a second */
+    background-image: radial-gradient(#ff0 1px, transparent 1px), 
+                      radial-gradient(#0ff 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.3;
+    animation: confetti-drift 2s linear infinite;
+}
+
+@keyframes confetti-drift {
+    from { background-position: 0 0; }
+    to { background-position: 100px 500px; }
 }

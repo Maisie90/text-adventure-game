@@ -7,15 +7,30 @@
 <link rel="stylesheet" href="style.css">
 <script src="game.js" defer></script>
 </head>
+
 <body>
 
-<div id="story"></div>
-<div id="scene-image-container">
-  <img id="scene-image" src="" alt="" style="display:none; max-width:100%; margin-top:1em;" />
+    <div id="splash-screen">
+    <div class="folder-cover">
+        <h1>CASE FILE: #1502-26</h1>
+        <p>STRICTLY CONFIDENTIAL</p>
+        <button id="start-button">OPEN CASE</button>
+    </div>
 </div>
+
+<div class="game-container">
+    <div id="story"></div>
+    <div id="scene-image-container">
+    <img id="scene-image" src="" alt="" />
+    </div> 
+</div>
+
 <div id="choices"></div>
+
+
 <div class="inventory" id="inventory"></div>
 <div class="memory" id="memory"></div>
+ 
 
 
 </body>
