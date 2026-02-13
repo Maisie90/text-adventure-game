@@ -75,10 +75,10 @@ The `goTo()` function:
 ### Endings
 
 There are currently 4 possible endings. 
--True Ending
--Chaos Ending
--Fail Ending
--Nearly-There Ending
+- True Ending
+- Chaos Ending
+- Fail Ending
+- Nearly-There Ending
 
 ### Purpose
 
