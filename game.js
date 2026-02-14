@@ -587,7 +587,7 @@ Do I keep digging, or am I ready to see the whole picture?`;
 },
 
     endingOne: {
-text: `<h2> The Final Exhibit </h2>
+text: `<h2> The Happy Couple </h2>
 The office felt different this time. The shadows were longer, but the air was electric. I walked back to my desk, my mind a kaleidoscope of cider, gardens, and sea-green eyes.
 
 And then I saw it. A small, defiant tower of Cheerios standing on my mahogany desk—a tiny monument to a conspiracy that spanned the whole city.

@@ -55,7 +55,7 @@ h1 {
     10px 15px 30px rgba(0,0,0,0.5); /* Outer shadow */
 }
 
-/* Make the text look slightly stamped into the paper */
+
 #story p {
     font-weight: 500;
     opacity: 0.9;
@@ -213,7 +213,7 @@ button:hover {
 /* ------------------ Mobile Adjustments ------------------ */
 @media (max-width: 800px) {
     .game-container {
-        flex-direction: column-reverse; /* Image moves above text on mobile */
+        flex-direction: column; /* Image moves below text on mobile */
         gap: 20px;
     }
     
