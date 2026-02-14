@@ -19,16 +19,14 @@ Players navigate a branching narrative, uncover clues, manage inventory, and mak
 ```
 Anno-Game/
 │
-└── Frontend/
-    │
-    ├── index.html
-    ├── style.css
-    ├── game.js
-    │
-    └── assets/
-        ├── desk.png
-        ├── map.png
-        └── (other scene images)
+|── index.html
+├── style.css
+├── game.js
+│
+└── assets/
+    ├── desk.png
+    ├── map.png
+    └── (other scene images)
 ```
 
 ### How to Run locally
