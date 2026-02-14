@@ -41,7 +41,11 @@ Using VS Code (Recommended)
 
 ### Deployment
 
+This game is deployed on Render and GitHub pages.
 
+[Github](https://maisie90.github.io/text-adventure-game/)
+
+[Render](https://the-missing-ring.onrender.com/)
 
 ### How the Game Works
 
