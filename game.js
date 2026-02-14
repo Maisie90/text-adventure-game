@@ -564,7 +564,7 @@ Do I keep digging, or am I ready to see the whole picture?`;
       choices = [
         { text: "Confront Killian with the evidence", action: () => { state.ring = true;  document.body.classList.add('confetti-mode'); goTo('endingOne'); } }
       ];
-    } else if (state.memory > 1 || state.chocolate || state.doughnut || state.guinness) {
+    } else if (state.memory > 2 || state.chocolate || state.doughnut || state.guinness) {
            text += `\n\nI didn't have the full picture yet, but I had enough. The feeling in my gut was louder than the rain outside. 
            
            Killian was holding out on me, and I was going to get something out of him.`;
