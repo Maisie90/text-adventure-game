@@ -84,4 +84,4 @@ There are currently 4 possible endings.
 
 ### Purpose
 
-This project was purely for personal and educational purposes.
+This project was purely for personal and educational purposes. Feel free to use, amend and play!

@@ -35,11 +35,11 @@ h1 {
   padding: 50px;
   
   /* 1. Base Manila Color */
-  background-color: #e8d9b5; 
+  background-color: #cabb98; 
 
   /* 2. Visual Effects: Lamp Highlight + Subtle Fiber Grain */
   background-image: 
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15) 0%, transparent 50%),
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.348) 0%, transparent 50%),
     repeating-linear-gradient(45deg, rgba(0,0,0,0.01) 0px, rgba(0,0,0,0.01) 1px, transparent 1px, transparent 2px);
   
   /* 3. The "Inked" Text Color */

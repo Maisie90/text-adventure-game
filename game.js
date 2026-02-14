@@ -614,7 +614,10 @@ Maisie laughed, a sound better than any jukebox melody.
 
 “Yep! I couldn't exactly give you amnesia in real life, so I built you this game instead!”
 
+Killian pushed the ring into my hand, and in turn I slipped the sparkling adornment onto Maisie's finger. 
+
 She pulled me closer. <emphasis>“Happy Anniversary, babe. I’m so glad we made it.”</emphasis>`,
+
 image:"assets/anniversary.png",
 choices: [
   { text: "Play Again", action: () => {document.body.classList.remove('confetti-mode');resetState(); goTo('start')} } ] 
@@ -643,6 +646,8 @@ choices: [
 endingThree: { 
 
   text: `<h2> A Cold Goodbye </h2>
+We made our way back to the office. My mind reeling.
+
 I sat across from Killian, my mind a mess of half-formed suspicions and zero proof. I tried to corner him, to demand the truth, but I was playing a game without any cards.
 
 Killian leaned back, a cold, mocking laugh escaping him. “You’re really something, Detective. You think you can accuse a man of my standing without a shred of evidence? You’re out of your depth.”
@@ -652,7 +657,7 @@ He stood up, looking down at me with pity. “It's time to go back to sleep.”
 Before I could move, he cupped his hand and blew a fine, sweet-smelling dust into my face. My vision blurred. The office spun. The floor rose up to meet me like an old friend.
 
 When I woke up, the desk was empty. No ring. No Killian. Just the rain and the lingering, hollow feeling that I had the answer in my hand and let it slip through my fingers.`, 
-image:"assets/office.png",
+image:"assets/failed.png",
 choices: [ 
   { text: "Begin again", action: () => {resetState(); goTo('start')} }, ]
     },
